@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity.Validation;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using CESystemDomain.Data;
 using CESystemDomain.Entities;
@@ -59,6 +60,11 @@ namespace CESystemDomain.Identity
         public User TryGetUserById(string userId)
         {
             return userManager.FindById(userId);
+        }
+
+        public Task<ClaimsIdentity> GenerateUserIdentityAsync(User user, string authenticationType)
+        {
+            return user.GenerateUserIdentityAsync(userManager, authenticationType);
         }
     }
 }

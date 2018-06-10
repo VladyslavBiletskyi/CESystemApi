@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using CESystemDomainExtensibility.Entities;
 
 namespace CESystemDomainExtensibility.Repositories
@@ -7,5 +8,6 @@ namespace CESystemDomainExtensibility.Repositories
     {
         Task<IUser> CreateUserAsync(string name, string email, string password);
         Task<IUser> AuthenticateAsync(string email, string password);
+        Task<ClaimsIdentity> GenerateUserIdentityAsync(string userId, string authenticationType);
     }
 }

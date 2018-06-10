@@ -1,4 +1,5 @@
-﻿using CESystemServicesExtensibility.Dto;
+﻿using System;
+using CESystemServicesExtensibility.Dto;
 
 namespace CESystemServicesExtensibility.Services
 {
@@ -11,5 +12,7 @@ namespace CESystemServicesExtensibility.Services
         bool RemoveCertificateById(int id);
 
         bool AddCertificate(UserDto user, CertificateDto certificate);
+
+        CertificateDto GenerateChildCertificate(CertificateDto certificate, string areaOfUsage, string holderName, DateTime expirationDate);
     }
 }

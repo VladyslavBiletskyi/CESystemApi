@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using CESystemDomain.Data;
 using CESystemDomain.Entities;
@@ -56,6 +57,11 @@ namespace CESystemDomain.Repositories
         public async Task<IUser> AuthenticateAsync(string email, string password)
         {
             return await identityUnitOfWork.AuthenticateAsync(email, password);
+        }
+
+        public Task<ClaimsIdentity> GenerateUserIdentityAsync(string userId, string authenticationType)
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override IQueryable<IUser> GetInitialQueryable()

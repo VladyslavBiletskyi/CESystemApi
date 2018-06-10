@@ -58,6 +58,12 @@ namespace CESystemServices.Services
             return false;
         }
 
+        public CertificateDto GenerateChildCertificate(CertificateDto certificate, string areaOfUsage, string holderName, DateTime expirationDate)
+        {
+            var parent = _certificateRepository.GetInstanceById(certificate.Id);
+            return parent == null ? null : ToClientDto(certificateGenerator.GenerateChildCertificate(parent, areaOfUsage, holderName, expirationDate));
+        }
+
         public bool RemoveCertificateById(int id)
         {
             var certificate = _certificateRepository.GetInstanceById(id);
