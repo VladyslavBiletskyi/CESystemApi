@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CESystemServicesExtensibility.Dto;
 
-namespace CESystemServices.Dto
+namespace CESystemServicesExtensibility.Dto
 {
-    public class CertificateDto : ICertificateDto
+    public class CertificateDto
     {
         public int Id { get; set; }
         public string HolderName { get; set; }

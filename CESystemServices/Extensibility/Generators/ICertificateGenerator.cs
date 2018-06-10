@@ -1,6 +1,11 @@
-﻿namespace CESystemServices.Extensibility.Generators
+﻿using System;
+using CESystemDomainExtensibility.Entities;
+
+namespace CESystemServices.Extensibility.Generators
 {
-    internal interface ICertificateGenerator
+    public interface ICertificateGenerator
     {
+        ICertificate GenerateChildCertificate(ICertificate parent, string areaOfUsage, string holderName,
+            DateTime expirationDate)
     }
 }

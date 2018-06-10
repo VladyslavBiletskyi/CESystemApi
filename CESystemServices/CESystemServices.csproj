@@ -40,7 +40,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\CertificateDto.cs" />
     <Compile Include="Extensibility\Generators\ICertificateGenerator.cs" />
     <Compile Include="Generators\CertificateGenerator.cs" />
     <Compile Include="ServicesNinjectModule.cs" />
@@ -63,7 +62,9 @@
       <Name>CESystemServicesExtensibility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Dto\" />
+  </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>

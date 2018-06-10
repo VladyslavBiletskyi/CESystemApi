@@ -34,7 +34,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\ICertificateDto.cs" />
+    <Compile Include="Dto\CertificateDto.cs" />
+    <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ICertificateService.cs" />
     <Compile Include="Services\IDbHealthKeeperService.cs" />

@@ -4,10 +4,12 @@ namespace CESystemServicesExtensibility.Services
 {
     public interface ICertificateService
     {
-        ICertificateDto GetCertificateById(int id);
+        CertificateDto GetCertificateById(int id);
 
-        bool UpdateCertificate(ICertificateDto certificate);
+        bool UpdateCertificate(CertificateDto certificate);
 
         bool RemoveCertificateById(int id);
+
+        bool AddCertificate(UserDto user, CertificateDto certificate);
     }
 }

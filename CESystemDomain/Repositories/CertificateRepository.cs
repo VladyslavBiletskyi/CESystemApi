@@ -56,7 +56,7 @@ namespace CESystemDomain.Repositories
 
         }
 
-        public ICertificate CreateCertificate(IUser user, byte[] hash, string holderName, string issuerName, DateTime expirationDate, byte[] sharedKey, byte[] signature, string areaOfUsage, string hashingAlgorithm)
+        public ICertificate CreateCertificate(IUser user, string holderName, string issuerName, DateTime expirationDate, byte[] sharedKey, byte[] signature, string areaOfUsage, string hashingAlgorithm, ICertificate parent = null)
         {
             var owner = DbContext.Set<User>().Find(user.Id);
             if (owner == null)
@@ -73,11 +73,17 @@ namespace CESystemDomain.Repositories
                 Signature = signature,
                 Owner = owner,
                 AreaOfUsage = areaOfUsage,
-                HashingAlgorithm = hashingAlgorithm
+                HashingAlgorithm = hashingAlgorithm,
+                ParentCertificate = parent
             };
-            DbContext.Set<Certificate>().Add(certificate);
-            DbContext.SaveChanges();
-            return certificate;
+            if (certificate.IsCertificateValid())
+            {
+                DbContext.Set<Certificate>().Add(certificate);
+                DbContext.SaveChanges();
+                return certificate;
+            }
+
+            return null;
         }
 
         protected override IQueryable<ICertificate> GetInitialQueryable()

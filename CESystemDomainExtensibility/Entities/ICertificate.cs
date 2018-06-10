@@ -8,6 +8,8 @@ namespace CESystemDomainExtensibility.Entities
 {
     public interface ICertificate: IBaseInstance<int>
     {
+        ICertificate ParentCertificate { get; set; }
+
         IUser User { get; }
 
         byte[] Hash { get; }

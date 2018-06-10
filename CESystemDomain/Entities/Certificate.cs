@@ -7,6 +7,7 @@ namespace CESystemDomain.Entities
     public class Certificate : BaseInstance<int>, ICertificate
     {
         public virtual User Owner { get; set; }
+        public ICertificate ParentCertificate { get; set; }
 
         public virtual IUser User => Owner;
 
