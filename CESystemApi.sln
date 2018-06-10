@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CESystemApi", "CESystemApi\CESystemApi.csproj", "{46CAC943-BF5D-4772-8D03-98FE9CBF3C6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CESystemServices", "CESystemServices\CESystemServices.csproj", "{D0FA3551-B885-406E-BC36-B147B288EF68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CESystemDomain", "CESystemDomain\CESystemDomain.csproj", "{1E708AEF-2726-4127-A464-3FFB05524D6E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{528AD1A2-D4A4-4AF7-9491-7DD31C662985}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{3EF6FE63-DA55-4E6B-A0AD-0D2A2B0BCE75}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PL", "PL", "{B7BADEEB-2779-4828-857F-8941A3E90A25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CESystemServicesExtensibility", "CESystemServicesExtensibility\CESystemServicesExtensibility.csproj", "{F875A1F9-1A04-4145-9142-A6F2CF8D273F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CESystemDomainExtensibility", "CESystemDomainExtensibility\CESystemDomainExtensibility.csproj", "{E04FF092-8001-4126-88A8-218F97CAA473}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +23,31 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{46CAC943-BF5D-4772-8D03-98FE9CBF3C6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46CAC943-BF5D-4772-8D03-98FE9CBF3C6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46CAC943-BF5D-4772-8D03-98FE9CBF3C6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46CAC943-BF5D-4772-8D03-98FE9CBF3C6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0FA3551-B885-406E-BC36-B147B288EF68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0FA3551-B885-406E-BC36-B147B288EF68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0FA3551-B885-406E-BC36-B147B288EF68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0FA3551-B885-406E-BC36-B147B288EF68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E708AEF-2726-4127-A464-3FFB05524D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E708AEF-2726-4127-A464-3FFB05524D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E708AEF-2726-4127-A464-3FFB05524D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E708AEF-2726-4127-A464-3FFB05524D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F875A1F9-1A04-4145-9142-A6F2CF8D273F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F875A1F9-1A04-4145-9142-A6F2CF8D273F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F875A1F9-1A04-4145-9142-A6F2CF8D273F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F875A1F9-1A04-4145-9142-A6F2CF8D273F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E04FF092-8001-4126-88A8-218F97CAA473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E04FF092-8001-4126-88A8-218F97CAA473}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E04FF092-8001-4126-88A8-218F97CAA473}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E04FF092-8001-4126-88A8-218F97CAA473}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D0FA3551-B885-406E-BC36-B147B288EF68} = {528AD1A2-D4A4-4AF7-9491-7DD31C662985}
+		{1E708AEF-2726-4127-A464-3FFB05524D6E} = {3EF6FE63-DA55-4E6B-A0AD-0D2A2B0BCE75}
+		{F875A1F9-1A04-4145-9142-A6F2CF8D273F} = {528AD1A2-D4A4-4AF7-9491-7DD31C662985}
+		{E04FF092-8001-4126-88A8-218F97CAA473} = {3EF6FE63-DA55-4E6B-A0AD-0D2A2B0BCE75}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6BA61989-1D65-486E-9DD2-79CB0FC1CA88}
