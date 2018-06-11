@@ -8,7 +8,7 @@ namespace CESystemDomainExtensibility.Entities
 {
     public interface ICertificate: IBaseInstance<int>
     {
-        ICertificate ParentCertificate { get; set; }
+        ICertificate ParentCertificate { get; }
 
         IUser User { get; }
 
@@ -29,5 +29,7 @@ namespace CESystemDomainExtensibility.Entities
         string HashingAlgorithm { get; set; }
 
         bool IsCertificateValid();
+
+        IEnumerable<ICertificate> Children { get; }
     }
 }

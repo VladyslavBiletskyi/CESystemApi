@@ -15,9 +15,10 @@ namespace CESystemServices.Services
             this._userRepository = userRepository;
         }
 
-        public Task<UserDto> AuthenticateAsync(string email, string password)
+        public async Task<UserDto> AuthenticateAsync(string email, string password)
         {
-            var user = _userRepository.AuthenticateAsync(email, password);
+            var user = await _userRepository.AuthenticateAsync(email, password);
+            return new UserDto{Email = user.Email, Id = user.Id, Name = user.Name};
         }
 
         public Task<ClaimsIdentity> GenerateUserIdentityAsync(string userId, string authenticationType)

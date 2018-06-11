@@ -12,10 +12,12 @@ namespace CESystemDomain.Repositories
     internal class UserRepository : CrudBaseRepository<IUser, string>, IUserRepository
     {
         private IIdentityUnitOfWork identityUnitOfWork;
+        private ICertificateRepository certificateRepository;
 
-        public UserRepository(CESystemDbContext dbContext, IIdentityUnitOfWork identityUnitOfWork) : base(dbContext)
+        public UserRepository(CESystemDbContext dbContext, IIdentityUnitOfWork identityUnitOfWork, ICertificateRepository certificateRepository) : base(dbContext)
         {
             this.identityUnitOfWork = identityUnitOfWork;
+            this.certificateRepository = certificateRepository;
         }
 
         public override IUser GetInstanceById(string id)
@@ -39,6 +41,10 @@ namespace CESystemDomain.Repositories
             {
                 var user = identityUnitOfWork.TryGetUserById(instance.Id);
                 if (user == null) return false;
+                foreach (var certificate in user.Certificates)
+                {
+                    certificateRepository.RemoveInstance(certificate);
+                }
                 DbContext.Set<User>().Remove(user);
                 DbContext.SaveChanges();
                 return true;

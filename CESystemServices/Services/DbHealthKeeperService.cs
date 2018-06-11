@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 using CESystemDomainExtensibility.Entities;
 using CESystemDomainExtensibility.Repositories;
 using CESystemServicesExtensibility.Services;
+using Quartz;
+using Quartz.Impl;
 
 namespace CESystemServices.Services
 {
-    public class DbHealthKeeperService : IDbHealthKeeperService
+    public class DbHealthKeeperService : IDbHealthKeeperService, IJob
     {
         private readonly ICertificatesHashRepository certificatesHashRepository;
         private readonly ICertificateRepository certificateRepository;
@@ -20,30 +22,20 @@ namespace CESystemServices.Services
 
         public void Run()
         {
-            var changedCertificates = FindChangedCertificates().ToList();
-            foreach (var changedCertificate in changedCertificates)
-            {
-                if (changedCertificate.IsCertificateValid())
-                {
-                    var hash = certificatesHashRepository.GetAllInstances()
-                        .FirstOrDefault(x => x.Certificate.Id == changedCertificate.Id);
-                    if (hash != null)
-                    {
-                        hash.Hash = changedCertificate.Hash;
-                        certificatesHashRepository.UpdateInstance(hash);
+            IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler().Result;
+            scheduler.Start().RunSynchronously();
 
-                    }
-                    else
-                    {
-                        certificatesHashRepository.AddCertificateHash(changedCertificate);
-                    }
-                }
-                else
-                {
-                    RestoreCertificateFromDump(changedCertificate);
-                }
-            }
-            CreateDbDump(changedCertificates);
+            IJobDetail job = JobBuilder.Create<DbHealthKeeperService>().Build();
+
+            ITrigger trigger = TriggerBuilder.Create()  
+                .WithIdentity("CEApiHealthCheck", "CEApi")     
+                .StartNow()                           
+                .WithSimpleSchedule(x => x            
+                    .WithIntervalInHours(4)          
+                    .RepeatForever())                  
+                .Build();                              
+
+            scheduler.ScheduleJob(job, trigger).RunSynchronously();
         }
 
         private IEnumerable<ICertificate> FindChangedCertificates()
@@ -79,6 +71,35 @@ namespace CESystemServices.Services
             {
 
             }
+        }
+
+        public Task Execute(IJobExecutionContext context)
+        {
+            var changedCertificates = FindChangedCertificates().ToList();
+            foreach (var changedCertificate in changedCertificates)
+            {
+                if (changedCertificate.IsCertificateValid())
+                {
+                    var hash = certificatesHashRepository.GetAllInstances()
+                        .FirstOrDefault(x => x.Certificate.Id == changedCertificate.Id);
+                    if (hash != null)
+                    {
+                        hash.Hash = changedCertificate.Hash;
+                        certificatesHashRepository.UpdateInstance(hash);
+
+                    }
+                    else
+                    {
+                        certificatesHashRepository.AddCertificateHash(changedCertificate);
+                    }
+                }
+                else
+                {
+                    RestoreCertificateFromDump(changedCertificate);
+                }
+            }
+            CreateDbDump(changedCertificates);
+            return Task.CompletedTask;
         }
     }
 }

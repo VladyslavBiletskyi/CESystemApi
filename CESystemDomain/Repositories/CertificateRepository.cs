@@ -45,6 +45,10 @@ namespace CESystemDomain.Repositories
                     return false;
                 }
 
+                foreach (var child in certificate.ChildrenInternal)
+                {
+                    DbContext.Set<Certificate>().Remove(child);
+                }
                 DbContext.Set<Certificate>().Remove(certificate);
                 DbContext.SaveChanges();
                 return true;
@@ -64,6 +68,8 @@ namespace CESystemDomain.Repositories
                 return null;
             }
 
+            var parentInternal = DbContext.Set<Certificate>().Find(parent?.Id);
+
             var certificate = new Certificate
             {
                 ExpirationDate = expirationDate,
@@ -74,16 +80,13 @@ namespace CESystemDomain.Repositories
                 Owner = owner,
                 AreaOfUsage = areaOfUsage,
                 HashingAlgorithm = hashingAlgorithm,
-                ParentCertificate = parent
+                ParentInternal = parentInternal
             };
-            if (certificate.IsCertificateValid())
-            {
-                DbContext.Set<Certificate>().Add(certificate);
-                DbContext.SaveChanges();
-                return certificate;
-            }
+            if (!certificate.IsCertificateValid()) return null;
+            DbContext.Set<Certificate>().Add(certificate);
+            DbContext.SaveChanges();
+            return certificate;
 
-            return null;
         }
 
         protected override IQueryable<ICertificate> GetInitialQueryable()

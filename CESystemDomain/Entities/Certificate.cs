@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Security.Cryptography;
+using System.Collections.Generic;
 using CESystemDomainExtensibility.Entities;
 
 namespace CESystemDomain.Entities
@@ -7,7 +7,7 @@ namespace CESystemDomain.Entities
     public class Certificate : BaseInstance<int>, ICertificate
     {
         public virtual User Owner { get; set; }
-        public ICertificate ParentCertificate { get; set; }
+        public ICertificate ParentCertificate => ParentInternal;
 
         public virtual IUser User => Owner;
 
@@ -24,6 +24,12 @@ namespace CESystemDomain.Entities
         {
             return true;
         }
+
+        public IEnumerable<ICertificate> Children => ChildrenInternal;
+
+        public Certificate ParentInternal { get; set; }
+
+        public virtual ICollection<Certificate> ChildrenInternal { get; set; }
 
         private byte[] GetHash()
         {

@@ -1,13 +1,14 @@
 ﻿using System;
+using CESystemApi;
 using CESystemApi.Providers;
 using CESystemServicesExtensibility.Services;
 using Microsoft.Owin;
-using Owin;
 using Microsoft.Owin.Security.OAuth;
+using Owin;
 
-[assembly: OwinStartup(typeof(UserStore.App_Start.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 
-namespace UserStore.App_Start
+namespace CESystemApi
 {
     public class Startup
     {

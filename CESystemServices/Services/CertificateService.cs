@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using CESystemDomainExtensibility.Entities;
 using CESystemDomainExtensibility.Repositories;
 using CESystemServices.Extensibility.Generators;
@@ -23,6 +25,17 @@ namespace CESystemServices.Services
         public CertificateDto GetCertificateById(int id)
         {
             return ToClientDto(_certificateRepository.GetInstanceById(id));
+        }
+
+        public IEnumerable<CertificateDto> GetAllCertificates(string userId)
+        {
+            var systemUser = userRepository.GetInstanceById(userId);
+            if (systemUser != null)
+            {
+                return systemUser.Certificates.Select(ToClientDto);
+            }
+
+            return Enumerable.Empty<CertificateDto>();
         }
 
         public bool UpdateCertificate(CertificateDto certificate)
@@ -58,6 +71,13 @@ namespace CESystemServices.Services
             return false;
         }
 
+        public bool IsCertificateBelongsToUser(string userId, int certificateId)
+        {
+            var user = userRepository.GetInstanceById(userId);
+            var certificate = _certificateRepository.GetInstanceById(certificateId);
+            return certificate != null && user != null && certificate.User.Id == user.Id;
+        }
+
         public CertificateDto GenerateChildCertificate(CertificateDto certificate, string areaOfUsage, string holderName, DateTime expirationDate)
         {
             var parent = _certificateRepository.GetInstanceById(certificate.Id);
@@ -85,7 +105,8 @@ namespace CESystemServices.Services
                 HolderName = certificate.HolderName,
                 IssuerName = certificate.IssuerName,
                 SharedKey = certificate.SharedKey,
-                Signature = certificate.Signature
+                Signature = certificate.Signature,
+                Children = certificate.Children.Select(ToClientDto)
             };
         }
     }

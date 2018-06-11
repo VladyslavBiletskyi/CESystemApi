@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CESystemServicesExtensibility.Dto
 {
@@ -12,5 +13,7 @@ namespace CESystemServicesExtensibility.Dto
         public byte[] Signature { get; set; }
         public string AreaOfUsage { get; set; }
         public string HashingAlgorithm { get; set; }
+
+        public IEnumerable<CertificateDto> Children { get; set; }
     }
 }
